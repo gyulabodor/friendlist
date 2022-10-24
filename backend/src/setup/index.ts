@@ -1,1 +1,2 @@
-export * from "./setupServer"
+export * from "./setupServer";
+export * from "./setupDB";
