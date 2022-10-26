@@ -4,7 +4,7 @@ import { Food } from "../../entities/food";
 import { Friend } from "../../entities/friend";
 import { BadRequestError } from "../../errors";
 
-export const addNewFriend = async (friendDTO: FriendDTO) => {
+export const addNewFriend = async (friendDTO: FriendDTO) :Promise<string> => {
 
     const friend = new Friend();
     friend.name=friendDTO.name;
@@ -26,4 +26,13 @@ export const addNewFriend = async (friendDTO: FriendDTO) => {
     return (
         `${newFriend.name} successfully saved!`
     );
+}
+
+export const getFriends = async (): Promise<Friend[]> => {
+
+    return await AppDataSource.getRepository(Friend).find({
+        relations: {
+            favFood: true,
+        }
+    });
 }

@@ -1,12 +1,17 @@
 import { Router } from "express";
 import { FriendDTO } from "../dtos/friendDTO";
-import { addNewFriend } from "../services/friendService/friendService";
+import { addNewFriend, getFriends } from "../services/friendService/friendService";
 import { validation } from "../utilities/";
 
 export const friendsRouter = Router();
 
-friendsRouter.post("/list", async (req,res) =>{
-    
+friendsRouter.get("/list", async (req,res,next) =>{
+    try {
+        const friends = await getFriends();
+        res.json(friends);
+    } catch (error) {
+        next(error)
+    }
 });
 
 friendsRouter.post("/add", async (req,res,next) =>{
@@ -33,11 +38,10 @@ friendsRouter.post("/add", async (req,res,next) =>{
             next(error);
         }
     }
-
 });
 
 friendsRouter.put("/update", async (req,res) =>{
-
+    
 });
 
 friendsRouter.delete("/delete", async (req,res) =>{
