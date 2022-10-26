@@ -20,3 +20,8 @@ export const addNewFood = async (foodDTO: FoodDTO) :Promise<string> => {
 
     return "New food has been successfully saved!";
 };
+
+export const getFoods = async (): Promise<Food[]> => {
+
+    return await AppDataSource.getRepository(Food).find();
+}

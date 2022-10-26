@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { FoodDTO } from "../dtos/foodDTO";
-import { addNewFood } from "../services/foodService/foodService";
+import { addNewFood, getFoods } from "../services/foodService/foodService";
 import { validation } from "../utilities/validation";
 
 
@@ -15,7 +15,7 @@ foodRouter.post("/add", async (req,res,next) => {
     let validated;
 
     try {
-        validated = await validation(foodDTO)
+        validated = await validation(foodDTO);
     } catch (error) {
         next(error);
     }
@@ -28,4 +28,13 @@ foodRouter.post("/add", async (req,res,next) => {
             next(error);
         }
     }
-})
+});
+
+foodRouter.get("/list", async (req,res,next) => {
+    try {
+        const foods = await getFoods();
+        res.json(foods);
+    } catch (error) {
+        next(error)
+    }
+});
