@@ -1,12 +1,10 @@
 import { setupDB } from "./setup";
-import "reflect-metadata";
 import { ORIGIN, PORT } from "./configuration";
 import { rootRouter } from "./routes";
 import express from "express";
 import cors from "cors";
 import { errorHandler } from "./middlewares/";
-
-
+import "reflect-metadata";
 
 const app = express();
 app.use(express.json());
@@ -18,6 +16,3 @@ app.listen(PORT, () =>{
 })
 
 setupDB();
-
-
-

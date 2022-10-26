@@ -5,7 +5,7 @@ export const validation = async (entity: object): Promise<boolean> => {
 	const errors = await validate(entity, {whitelist: true});
 
 	if (errors.length > 0) {
-		/*let messages: string[] = [];
+		let messages: string[] = [];
 		errors.forEach((err) => {
 			if (err.constraints) {
 				const constraintsObject: { [type: string]: string } =
@@ -13,9 +13,8 @@ export const validation = async (entity: object): Promise<boolean> => {
 				const msgs = Object.values(constraintsObject);
 				messages = [...messages, ...msgs];
 			}
-		});*/
-		//throw new BadRequestError(JSON.stringify(messages));
-		throw new BadRequestError("Invalid inputs");
+		});
+		throw new BadRequestError(JSON.stringify(messages));
 	}
 
 	return true;

@@ -23,5 +23,5 @@ export class FriendDTO {
         favFoodId!: number;
 
     @IsDefined()
-        relationshipStatus!: RelationshipStatus;
+        relationshipStatus!: number;
 }

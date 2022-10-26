@@ -17,7 +17,11 @@ export class Friend {
     @Column()
     comment!: string;
 
-    @Column()
+    @Column({
+        type: "enum",
+        enum: RelationshipStatus,
+        default: RelationshipStatus.SINGLE
+    })
     relationShipStatus!: RelationshipStatus;
 
     @ManyToOne(() => Food, (food) => food.friends)
