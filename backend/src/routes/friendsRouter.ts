@@ -5,16 +5,11 @@ import { validation } from "../utilities/";
 
 export const friendsRouter = Router();
 
-
-friendsRouter.get("/friends", async (req,res) => {
-
-});
-
-friendsRouter.post("/get-friends", async (req,res) =>{
+friendsRouter.post("/list", async (req,res) =>{
     
 });
 
-friendsRouter.post("/add-friend", async (req,res,next) =>{
+friendsRouter.post("/add", async (req,res,next) =>{
     let friendDTO =new FriendDTO(); 
     friendDTO.name=req.body.name
     friendDTO.email=req.body.email;
@@ -41,10 +36,10 @@ friendsRouter.post("/add-friend", async (req,res,next) =>{
 
 });
 
-friendsRouter.put("/update-friend", async (req,res) =>{
+friendsRouter.put("/update", async (req,res) =>{
 
 });
 
-friendsRouter.delete("/delete-friend", async (req,res) =>{
+friendsRouter.delete("/delete", async (req,res) =>{
 
 });
