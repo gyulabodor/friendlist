@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../db";
-import { FriendDeleteDTO } from "../../dtos";
+import { FriendDeleteDTO, FriendUpdateDTO } from "../../dtos";
 import { FriendDTO } from "../../dtos/friendDTO";
 import { Food } from "../../entities/food";
 import { Friend } from "../../entities/friend";
@@ -53,5 +53,30 @@ export const deleteFriend = async (friendDeleteDTO: FriendDeleteDTO): Promise<st
 
     return (
         `${friendToDelete.name} deleted from the list!`
+    );
+}
+
+export const updateFriend = async (friendUpdateDTO: FriendUpdateDTO): Promise<string> => {
+    
+    const friend = new Friend();
+    friend.id=friendUpdateDTO.id;
+    friend.name=friendUpdateDTO.name;
+    friend.email=friendUpdateDTO.email;
+    friend.comment=friendUpdateDTO.comment;
+    friend.relationShipStatus=friendUpdateDTO.relationshipStatus;
+    
+    const food = await AppDataSource.getRepository(Food).findOneBy({
+        id: friendUpdateDTO.favFoodId
+    });
+
+    if (food) {
+        friend.favFood = food;
+    } else{
+        throw new BadRequestError("Invalid Food! It doesn't exists!")
+    }
+
+    const updatedFriend = await AppDataSource.getRepository(Friend).save(friend);
+    return (
+        `${updatedFriend.name} successfully updated!`
     );
 }

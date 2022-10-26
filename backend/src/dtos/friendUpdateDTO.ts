@@ -9,8 +9,12 @@ import {
 } from "class-validator";
 import { RelationshipStatus } from "../types";
 
-export class FriendDTO {
-    
+export class FriendUpdateDTO {
+    @IsDefined()
+    @IsInt({
+        message: "ID should be a valid number!"
+    })
+    id!: number;
     @IsDefined()
     @MinLength(4, {
         message: "Name is too short! It should be at least 4 characters"
