@@ -1,4 +1,5 @@
 import { AppDataSource } from "../../db";
+import { FriendDeleteDTO } from "../../dtos";
 import { FriendDTO } from "../../dtos/friendDTO";
 import { Food } from "../../entities/food";
 import { Friend } from "../../entities/friend";
@@ -35,4 +36,22 @@ export const getFriends = async (): Promise<Friend[]> => {
             favFood: true,
         }
     });
+}
+
+export const deleteFriend = async (friendDeleteDTO: FriendDeleteDTO): Promise<string> => {
+
+    const friendToDelete = await AppDataSource.getRepository(Friend).findOneBy({
+        id: friendDeleteDTO.id
+    });
+
+    if (!friendToDelete) {
+        throw new BadRequestError("Friend doesn't exists in the database!")
+    }
+    await AppDataSource.getRepository(Friend).delete({
+        id: friendDeleteDTO.id
+    });
+
+    return (
+        `${friendToDelete.name} deleted from the list!`
+    );
 }

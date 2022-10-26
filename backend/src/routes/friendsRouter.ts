@@ -1,6 +1,7 @@
+import { validate } from "class-validator";
 import { Router } from "express";
-import { FriendDTO } from "../dtos/friendDTO";
-import { addNewFriend, getFriends } from "../services/friendService/friendService";
+import { FriendDeleteDTO, FriendDTO } from "../dtos/";
+import { addNewFriend, deleteFriend, getFriends } from "../services/friendService/friendService";
 import { validation } from "../utilities/";
 
 export const friendsRouter = Router();
@@ -40,10 +41,27 @@ friendsRouter.post("/add", async (req,res,next) =>{
     }
 });
 
-friendsRouter.put("/update", async (req,res) =>{
+friendsRouter.put("/update", async (req,res,next) =>{
     
 });
 
-friendsRouter.delete("/delete", async (req,res) =>{
+friendsRouter.delete("/delete", async (req,res,next) =>{
 
+    const friendDeleteDTO = new FriendDeleteDTO();
+    friendDeleteDTO.id = req.body.friendId;
+
+    let validated;
+    
+    try {
+        validated = validate(friendDeleteDTO);   
+    } catch (error) {
+        next(error);
+    }
+
+    try {
+        const message = await deleteFriend(friendDeleteDTO);
+        res.json({success: message});
+    } catch (error) {
+        next(error);
+    }
 });
