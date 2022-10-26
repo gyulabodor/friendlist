@@ -1,15 +1,14 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Friend } from "../entities";
+import { Friend } from "./friend";
 
-Entity()
-export class Food {
-
+@Entity()
+export class Food{
     @PrimaryGeneratedColumn()
-        id!: number;
-    
-    @Column()
-        name!: string;
+    id!: number;
 
-    @OneToMany(() => Friend, (friend) => friend.favFood, { cascade: true})
-        friends!: Friend[]
+    @Column()
+    name!: string;
+
+    @OneToMany(() => Friend, (friend) => friend.favFood)
+    friends!: Friend[]
 }

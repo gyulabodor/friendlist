@@ -1,28 +1,26 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { RelationshipStatus } from "../types";
-import { Food } from "../entities";
+import { Food } from "./food";
 
 @Entity()
 export class Friend {
+
     @PrimaryGeneratedColumn()
-        id!: number;
+    id!:number;
 
     @Column()
-        name!: string;
-    
+    name!: string;
+
     @Column()
-        email!: string;
-    
+    email!: string;
+
     @Column()
-        comment!: string;
-    
+    comment!: string;
+
+    @Column()
+    relationShipStatus!: RelationshipStatus;
+
     @ManyToOne(() => Food, (food) => food.friends)
-        favFood!: Food;
-
-    @Column({
-        type: 'enum',
-        enum: RelationshipStatus,
-        default: RelationshipStatus.SINGLE
-    })
-        relationshipStatus!: RelationshipStatus;
+    favFood!: Food;
+    
 }
