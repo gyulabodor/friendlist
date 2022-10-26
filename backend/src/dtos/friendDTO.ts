@@ -1,4 +1,4 @@
-import { IsDefined, IsEmail, IsInt, MaxLength, MinLength } from "class-validator";
+import { IsDefined, IsEmail, IsEnum, IsInt, IsOptional, MaxLength, MinLength } from "class-validator";
 import { RelationshipStatus } from "../types";
 
 export class FriendDTO {
@@ -22,6 +22,7 @@ export class FriendDTO {
     @IsInt({ message: "favFoodId Should be a valid id number!"})
         favFoodId!: number;
 
-    @IsDefined()
-        relationshipStatus!: number;
+    @IsOptional()
+    @IsEnum(RelationshipStatus)
+        relationshipStatus!: RelationshipStatus;
 }
